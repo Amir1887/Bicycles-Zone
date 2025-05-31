@@ -6,9 +6,14 @@ import SearchBar from "./SearchBar";
 import dynamic from "next/dynamic";
 // const SearchBar = dynamic(() => import('./SearchBar'), {ssr: false}); // to solve hydration probelm 
 // const NavIcons = dynamic(() => import("./NavIcons"));
-function Navbar() {
+
+
+
+const BASE_NAV_CLASSES = 'sticky top-0 z-50 h-20 w-full py-4 shadow-sm px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-64'
+
+function Navbar({theme = 'light'}: any) {
   return (
-    <nav className="sticky top-0 z-50 h-20 w-full py-4 bg-white shadow-sm text-black px-4 sm:px-6 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
+    <nav className={`${BASE_NAV_CLASSES} ${theme === 'light'? 'bg-white text-black': 'bg-black text-white'}`}>
       {/* Mobile screens */}
       <div className="md:hidden h-full flex items-center justify-between">
         <Link 
