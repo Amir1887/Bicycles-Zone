@@ -1,20 +1,33 @@
 'use client'
 
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useState } from "react";
 
 
 
 function SearchBar() {
-
+const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();  
+
   function handleSearch(e:React.FormEvent<HTMLFormElement>){
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const name = formData.get('name') as string;
 
-    if (name) {
-      router.push(`/search?name=${name}`);
+    setIsLoading(true);
+    
+    try{
+      if (name) {
+        router.push(`/search?name=${encodeURIComponent(name)}`);
+      } 
+    } finally {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 300);
+    }
+
+    if (!name || !name.trim()) {
+      return
     }
   }
 
@@ -35,8 +48,9 @@ function SearchBar() {
         type="submit"
         aria-label="Search"
         className="px-3 py-2 cursor-pointer bg-gray-100 hover:bg-gray-200 transition-colors"
+        disabled={isLoading}
       >
-        🔍
+       {isLoading ? '⌛':  '🔍'} 
       </button>
     </form>
   );
