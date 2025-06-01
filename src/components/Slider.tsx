@@ -26,7 +26,8 @@ function Slider({ slides } : SlideProps) {
   return (
     <div className="relative overflow-hidden">
          {/* Slides container with translateX animation */}
-         <div className={`flex transition:transform transform:translateX(-${currentSlide * 100})% ease-in-out duration-300 `}
+         <div className={`flex transition:transform ease-in-out duration-300 `}
+         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
          >
         {slides.map((slide) => (
             <div key={slide.id} className="w-full flex flex-shrink-0 flex-col gap-4 md:flex-row md:gap-4 ">
@@ -51,6 +52,19 @@ function Slider({ slides } : SlideProps) {
             </div>
             </div>
         ))}
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between  p-4 mt-3">
+            <button 
+            className="bg-orange-600 p-4 border-l-4 hover:border-l-0  cursor-pointer font-semibold text-lg disabled:opacity-50"
+            onClick={() => setCurrentSlide(prev => prev === 0 ? slides.length - 1 : prev - 1)}
+            >Previous</button>
+
+            <button 
+            className="bg-orange-600 p-4 border-r-4 hover:border-r-0 cursor-pointer font-semibold text-lg disabled:opacity-50"
+            onClick={() => setCurrentSlide(prev => prev === slides.length - 1 ? 0 : prev + 1)}
+            >Next</button>
         </div>
     </div>
   )
