@@ -38,15 +38,13 @@ function Slider({ slides, autoplay = true , interval = 3000 }: SlideProps) {
   // Auto-Play Functionality
   useEffect(() => {
     if (!autoplay) return;
-    const timer = setInterval(() => {
-      goToPrev();
-    }, interval);
+    const timer = setInterval( goToNext ,interval);
 
     return () => clearTimeout(timer);
   }, [interval, currentSlide, autoplay]);
 
   return (
-    <div className="relative overflow-hidden">
+    <div className="relative overflow-hidden h-[500px] md:h-[600px] bg-gray-950">
       {/* Slides container with translateX animation */}
       <div
         className={`flex transition:transform ease-in-out duration-300 `}
@@ -58,7 +56,7 @@ function Slider({ slides, autoplay = true , interval = 3000 }: SlideProps) {
             className="w-full flex flex-shrink-0 flex-col gap-4 md:flex-row md:gap-4 "
           >
             {/* text */}
-            <div>
+            <div className="">
               <h2>{slide.description}</h2>
               <h1>{slide.title}</h1>
               <Link href={slide.url}>
