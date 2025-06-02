@@ -61,6 +61,18 @@ function Slider({ slides } : SlideProps) {
             onClick={() => setCurrentSlide(prev => prev === 0 ? slides.length - 1 : prev - 1)}
             >Previous</button>
 
+        {/* Slide Indicators */}
+        <div className="flex gap-2 mb-1.5">
+           {slides.map((_, index) => (
+            <button
+                key={index}
+                aria-label={`go to slide number ${index + 1}`}
+                className={`w-3 h-3  rounded-full ${currentSlide === index ? 'bg-orange-600' : 'bg-white'}`}
+                onClick={() => setCurrentSlide(index)}
+            />
+           ))}
+        </div>
+
             <button 
             className="bg-orange-600 p-4 border-r-4 hover:border-r-0 cursor-pointer font-semibold text-lg disabled:opacity-50"
             onClick={() => setCurrentSlide(prev => prev === slides.length - 1 ? 0 : prev + 1)}
