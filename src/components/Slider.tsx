@@ -22,15 +22,25 @@ interface SlideProps {
 function Slider({ slides }: SlideProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
-// Auto-Play Functionality
-    useEffect(() => {
-    const timer =  setInterval(() => {
-            setCurrentSlide((prev)=> prev === slides.length -1 ? 0 : prev + 1 );
-        }, 3000);
+  // Extract Navigation Logic
+  const goToPrev = function () {
+    setCurrentSlide((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  };
+  const goToNext = function () {
+    setCurrentSlide((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  };
+  const goToSlide = function (index: number) {
+    setCurrentSlide(index);
+  };
+
+  // Auto-Play Functionality
+  useEffect(() => {
+    const timer = setInterval(() => {
+      goToPrev();
+    }, 3000);
 
     return () => clearTimeout(timer);
-    }, []);
-
+  }, []);
 
   return (
     <div className="relative overflow-hidden">
@@ -70,11 +80,7 @@ function Slider({ slides }: SlideProps) {
       <div className="flex justify-between  p-4 mt-3">
         <button
           className="bg-orange-600 p-4 border-l-4 hover:border-l-0  cursor-pointer font-semibold text-lg disabled:opacity-50"
-          onClick={() =>
-            setCurrentSlide((prev) =>
-              prev === 0 ? slides.length - 1 : prev - 1
-            )
-          }
+          onClick={() => goToPrev()}
         >
           Previous
         </button>
@@ -88,18 +94,14 @@ function Slider({ slides }: SlideProps) {
               className={`w-3 h-3  rounded-full ${
                 currentSlide === index ? "bg-orange-600" : "bg-white"
               }`}
-              onClick={() => setCurrentSlide(index)}
+              onClick={() => goToSlide(index)}
             />
           ))}
         </div>
 
         <button
           className="bg-orange-600 p-4 border-r-4 hover:border-r-0 cursor-pointer font-semibold text-lg disabled:opacity-50"
-          onClick={() =>
-            setCurrentSlide((prev) =>
-              prev === slides.length - 1 ? 0 : prev + 1
-            )
-          }
+          onClick={() => goToNext()}
         >
           Next
         </button>
