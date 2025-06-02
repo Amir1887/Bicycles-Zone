@@ -16,10 +16,12 @@ type Slide = {
 // 2. Create props interface for the component
 interface SlideProps {
   slides: Slide[];
+  autoplay?: boolean;
+  interval?: number; 
 }
 
 // 3. Basic component structure
-function Slider({ slides }: SlideProps) {
+function Slider({ slides, autoplay = true , interval = 3000 }: SlideProps) {
   const [currentSlide, setCurrentSlide] = useState(0);
 
   // Extract Navigation Logic
@@ -35,12 +37,13 @@ function Slider({ slides }: SlideProps) {
 
   // Auto-Play Functionality
   useEffect(() => {
+    if (!autoplay) return;
     const timer = setInterval(() => {
       goToPrev();
-    }, 3000);
+    }, interval);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [interval, currentSlide, autoplay]);
 
   return (
     <div className="relative overflow-hidden">
@@ -70,6 +73,7 @@ function Slider({ slides }: SlideProps) {
                 alt={slide.title}
                 width={500}
                 height={300}
+                priority={slides[currentSlide].id === slide.id}
               />
             </div>
           </div>
