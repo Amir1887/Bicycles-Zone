@@ -44,23 +44,29 @@ function Slider({ slides, autoplay = true , interval = 3000 }: SlideProps) {
   }, [interval, currentSlide, autoplay]);
 
   return (
-    <div className="relative overflow-hidden h-[500px] md:h-[600px] bg-gray-950">
+    <div className="relative overflow-hidden h-[1050px] md:h-[1200px] bg-gray-950">
       {/* Slides container with translateX animation */}
       <div
-        className={`flex transition:transform ease-in-out duration-300 `}
+        className={`flex transition-transform ease-in-out duration-300 `}
         style={{ transform: `translateX(-${currentSlide * 100}%)` }}
       >
         {slides.map((slide) => (
           <div
             key={slide.id}
-            className="w-full flex flex-shrink-0 flex-col gap-4 md:flex-row md:gap-4 "
+            className={`w-full flex flex-shrink-0 flex-col gap-4 md:flex-row md:gap-4 bg-balck`}
           >
             {/* text */}
-            <div className="">
-              <h2>{slide.description}</h2>
-              <h1>{slide.title}</h1>
+            <div className="flex flex-col p-6 justify-center items-center text-center md:w-1/2 md:px-12 md:items-center md:justify-center  ">
+              <h2
+                className="text-lg sm:text-xl md:text-3xl font-light mb-2 text"
+              >{slide.description}</h2>
+              <h1
+                className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 text-shadow-white"
+              >{slide.title}</h1>
               <Link href={slide.url}>
-                <button>Shop Now!</button>
+                <button
+                    className="bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-6 rounded-full transition-colors inline-block w-fit mx-auto md:mx-0"
+                >Shop Now!</button>
               </Link>
             </div>
 
