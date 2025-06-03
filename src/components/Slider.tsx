@@ -2,18 +2,11 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Slide } from "./types";
 
-// 1. Define TypeScript interface for slides
-type Slide = {
-  id: number;
-  title: string;
-  description: string;
-  img: string;
-  url: string;
-  bg: string;
-};
 
-// 2. Create props interface for the component
+
+//  Create props interface for the component
 interface SlideProps {
   slides: Slide[];
   autoplay?: boolean;
