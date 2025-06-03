@@ -44,7 +44,7 @@ function Slider({ slides, autoplay = true , interval = 3000 }: SlideProps) {
   }, [interval, currentSlide, autoplay]);
 
   return (
-    <div className="relative overflow-hidden h-[1050px] md:h-[1200px] bg-gray-950">
+    <div className="relative overflow-hidden  min-h-[70vh] md:min-h-[80vh] bg-gray-950">
       {/* Slides container with translateX animation */}
       <div
         className={`flex transition-transform ease-in-out duration-300 `}
@@ -71,13 +71,15 @@ function Slider({ slides, autoplay = true , interval = 3000 }: SlideProps) {
             </div>
 
             {/* image */}
-            <div>
+            <div className="md:w-1/2 flex flex-1 md:top-0 md:right-0">
               <Image
                 src={slide.img}
                 alt={slide.title}
                 width={500}
                 height={300}
                 priority={slides[currentSlide].id === slide.id}
+                className="object-contain object-center"
+                sizes="(max-width: 768px) 100vw, 50vw"
               />
             </div>
           </div>
@@ -87,7 +89,7 @@ function Slider({ slides, autoplay = true , interval = 3000 }: SlideProps) {
       {/* Navigation Buttons */}
       <div className="flex justify-between  p-4 mt-3">
         <button
-          className="bg-orange-600 p-4 border-l-4 hover:border-l-0  cursor-pointer font-semibold text-lg disabled:opacity-50"
+          className="bg-orange-600 p-4 border-l-4 hover:border-l-0  cursor-pointer font-semibold text-lg disabled:opacity-50  ml-25 mt-10  "
           onClick={() => goToPrev()}
         >
           Previous
@@ -108,7 +110,7 @@ function Slider({ slides, autoplay = true , interval = 3000 }: SlideProps) {
         </div>
 
         <button
-          className="bg-orange-600 p-4 border-r-4 hover:border-r-0 cursor-pointer font-semibold text-lg disabled:opacity-50"
+          className="bg-orange-600 p-4 border-r-4 hover:border-r-0 cursor-pointer font-semibold text-lg disabled:opacity-50 mr-20 mt-10 "
           onClick={() => goToNext()}
         >
           Next
