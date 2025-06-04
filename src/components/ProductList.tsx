@@ -5,38 +5,51 @@ interface ProductListProps {
 }
 
 function ProductList({ productList }: ProductListProps) {
+  if(!productList) {
+    return(
+    <div className="container mx-auto px-3 py-3 text-center">
+      <p>No available products</p>
+    </div>
+    )
+  }
   return (
-    <div>
-      <button className="font-bold text-2xl mb-5 mt-5 p-3 hover:text-amber-600">Featured Products</button>
-    <div className="flex flex-wrap">
+    <div className="mx-auto px-6 py-8 container">
+      <h2 className="font-extrabold  text-2xl md:text-3xl text-center md:text-left  mb-5 mt-5 p-3">Featured Products</h2>
+
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 p-6">
       {productList.map((product) => (
         // individual product
-        <div className="flex flex-col">
+        <article  
+        key={product.id}
+        aria-label={product.title}
+        className="border rounded-md shadow-sm transition:shadow hover:shadow-lg p-4 bg-black group relative cursor-pointer ">
           {/* image part  */}
-          <div>
+          <div className="relative aspect-square">
             <Image
               src={product.images[0]}
+              className="object-cover rounded-md z-10 hover:opacity-0 transition-opacity easy duration-300 "
               alt={product.title}
-              width={40}
-              height={40}
+              fill
             />
             <Image
               src={product.images[1]}
+              className="object-cover rounded-md"
               alt={product.title}
-              width={40}
-              height={40}
+              fill
             />
           </div>
 
-          {/* text  */}
-          <div className="flex gap-2 mt-2 mb-2">
-            <h2>{product.title}</h2>
-            <span>${product.price}</span>
+      {/* Text */}
+          <div className="flex justify-between mt-4">
+            <span className="font-semibold">{product.title}</span>
+            <span className="text-orange-600 font-bold">${product.price}</span>
           </div>
 
           {/* add to cart  */}
-          <button className="bg-orange-600 p-4 border-r-4 hover:border-r-0 cursor-pointer font-semibold text-lg disabled:opacity-50">Add to Cart</button>
-        </div>
+          <div className="flex justify-center">
+          <button className=" bg-orange-600 p-4 border-r-4 hover:border-r-0 rounded-md mt-3 cursor-pointer font-semibold text-lg disabled:opacity-50">Add to Cart</button>
+          </div>
+        </article>
       ))}
     </div>
     </div>
